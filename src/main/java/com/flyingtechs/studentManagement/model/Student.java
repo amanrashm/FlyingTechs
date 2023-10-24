@@ -21,21 +21,26 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(nullable = false, unique = true)
     @Size(max = 3, message = "Roll number can't exceed 3 characters")
     private String rollNumber;
 
+    @Column(nullable = false)
     @Size(max = 10, message = "Batch can't exceed 10 characters")
     private String batch;
 
+    @Column(nullable = false)
     @Size(max = 50, message = "Major can't exceed 50 characters")
     private String major;
 
+    @Column(nullable = false)
     private int totalCredits;
 
+    @Column(nullable = false)
     @Size(max = 50, message = "Academic advisor's name can't exceed 50 characters")
     private String academicAdvisor;
 /*
