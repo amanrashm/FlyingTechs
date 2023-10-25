@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
 @Builder
@@ -43,16 +44,16 @@ public class Student {
     @Column(nullable = false)
     @Size(max = 50, message = "Academic advisor's name can't exceed 50 characters")
     private String academicAdvisor;
-/*
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<HomeworkSubmission> homeworkSubmissions;
 
-    @ManyToMany(mappedBy = "students")
+    @OneToMany(mappedBy = "student")
     private Set<Course> courses;
 
     @OneToMany(mappedBy = "student")
     private Set<AttendanceRecord> attendanceRecords;
 
     @OneToMany(mappedBy = "student")
-    private Set<TestResult> testResults;*/
+    private Set<TestResult> testResults;
 }

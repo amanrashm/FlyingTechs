@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Builder
@@ -57,12 +58,12 @@ public class User {
     @Pattern(regexp = "\\d{12}", message = "Invalid Aadhar card format")
     @Column(name = "Aadhar_Card_Number", nullable = false, unique = true)
     private String aadharCardNumber;
-/*
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address userAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
-    private List<IdentityDocument> identityDocuments;*/
+    private List<IdentityDocument> identityDocuments;
 }
