@@ -55,7 +55,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test update(Test entity, Long id) {
-        Optional<Test> optional = findById(id) );
+        Optional<Test> optional = findById(id);
         if (optional.isPresent()) {
             return save(entity);
         }

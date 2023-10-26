@@ -2,6 +2,8 @@ package com.flyingtechs.studentManagement.mapper;
 
 import com.flyingtechs.studentManagement.dto.AbstractDTO;
 import org.dom4j.tree.AbstractEntity;
+import org.mapstruct.ObjectFactory;
+import org.mapstruct.TargetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,9 +22,8 @@ public class ReferenceMapper {
         this.em = em;
     }
 
-    @ObjectFactory
-    public <T extends AbstractEntity<?>> T resolve(AbstractDTO<?> sourceDTO,
-                                                   @TargetType Class<T> type) {
+    /*@ObjectFactory
+    public <T extends AbstractEntity<?>> T resolve(AbstractDTO<?> sourceDTO, @TargetType Class<T> type) {
         T entity = null;
         if (sourceDTO.getId() != null) entity = em.find(type, sourceDTO.getId());
         try {
@@ -34,5 +35,5 @@ public class ReferenceMapper {
             logger.error(e.getMessage());
         }
         return entity;
-    }
+    }*/
 }

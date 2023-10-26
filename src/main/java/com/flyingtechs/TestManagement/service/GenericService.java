@@ -18,6 +18,4 @@ public interface GenericService<E, M> {
     List<E> findAll();
 
     Page<E> findAll(Pageable pageable);
-
-    E update(E entity, I id);
 }

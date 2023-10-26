@@ -3,6 +3,7 @@ package com.flyingtechs.HrManagement.mapper;
 import com.flyingtechs.HrManagement.dto.HRDTO;
 import com.flyingtechs.HrManagement.model.HR;
 import com.flyingtechs.studentManagement.mapper.GenericMapper;
+import com.flyingtechs.studentManagement.mapper.ReferenceMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

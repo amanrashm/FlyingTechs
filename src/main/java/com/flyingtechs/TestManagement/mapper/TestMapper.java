@@ -3,6 +3,7 @@ package com.flyingtechs.TestManagement.mapper;
 import com.flyingtechs.TestManagement.dto.TestDTO;
 import com.flyingtechs.TestManagement.model.Test;
 import com.flyingtechs.studentManagement.mapper.GenericMapper;
+import com.flyingtechs.studentManagement.mapper.ReferenceMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -3,6 +3,8 @@ package com.flyingtechs.TestManagement.dto;
 import com.flyingtechs.TestManagement.model.TestType;
 import com.flyingtechs.studentManagement.model.Student;
 
+import java.util.Date;
+
 public class TestDTO extends AbstractDTO<Long> {
     private Long id;
     private String testName;
@@ -59,7 +61,7 @@ public class TestDTO extends AbstractDTO<Long> {
         this.testDate = testDate;
     }
 
-    public java.util.Date getTestDate() {
+    public Date getTestDate() {
         return this.testDate;
     }
 
