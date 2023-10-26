@@ -1,30 +1,32 @@
 package com.flyingtechs.TestManagement.controller;
 
 import com.flyingtechs.TestManagement.dto.TestDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@Api(tags = "Test API")
 public interface TestController {
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    TestDTO save(@RequestBody TestDTO testDTO);
+    @ApiOperation("Add new data")
+    public TestDTO save(@RequestBody TestDTO test);
 
-    @GetMapping("/{id}")
-    TestDTO findById(@PathVariable("id") Long id);
+    @ApiOperation("Find by Id")
+    public TestDTO findById(@PathVariable("id") Long id);
 
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable("id") Long id);
+    @ApiOperation("Delete based on primary key")
+    public void delete(@PathVariable("id") Long id);
 
-    @GetMapping
-    List<TestDTO> list();
+    @ApiOperation("Find all data")
+    public List<TestDTO> list();
 
-    @GetMapping("/page-query")
-    Page<TestDTO> pageQuery(Pageable pageable);
+    @ApiOperation("Pagination request")
+    public Page<TestDTO> pageQuery(Pageable pageable);
 
-    @PutMapping("/{id}")
-    TestDTO update(@RequestBody TestDTO testDTO, @PathVariable("id") Long id);
+    @ApiOperation("Update one data")
+    public TestDTO update(@RequestBody TestDTO dto, @PathVariable("id") Long id);
 }

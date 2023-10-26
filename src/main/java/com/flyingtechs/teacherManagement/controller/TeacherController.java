@@ -1,31 +1,32 @@
 package com.flyingtechs.teacherManagement.controller;
 
 import com.flyingtechs.teacherManagement.dto.TeacherDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@Api(tags = "Teacher API")
 public interface TeacherController {
+    @ApiOperation("Add new data")
+    public TeacherDTO save(@RequestBody TeacherDTO teacher);
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public abstract TeacherDTO save(@RequestBody TeacherDTO teacherDTO);
+    @ApiOperation("Find by Id")
+    public TeacherDTO findById(@PathVariable("id") Long id);
 
-    @GetMapping("/{id}")
-    public abstract TeacherDTO findById(@PathVariable("id") Long id);
+    @ApiOperation("Delete based on primary key")
+    public void delete(@PathVariable("id") Long id);
 
-    @DeleteMapping("/{id}")
-    public abstract void delete(@PathVariable("id") Long id);
+    @ApiOperation("Find all data")
+    public List<TeacherDTO> list();
 
-    @GetMapping
-    public abstract List<TeacherDTO> list();
+    @ApiOperation("Pagination request")
+    public Page<TeacherDTO> pageQuery(Pageable pageable);
 
-    @GetMapping("/page-query")
-    public abstract Page<TeacherDTO> pageQuery(Pageable pageable);
-
-    @PutMapping("/{id}")
-    public abstract TeacherDTO update(@RequestBody TeacherDTO teacherDTO, @PathVariable("id") Long id);
+    @ApiOperation("Update one data")
+    public TeacherDTO update(@RequestBody TeacherDTO dto, @PathVariable("id") Long id);
 }

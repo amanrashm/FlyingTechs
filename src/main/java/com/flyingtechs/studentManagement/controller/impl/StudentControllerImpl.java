@@ -2,7 +2,6 @@ package com.flyingtechs.studentManagement.controller.impl;
 
 import com.flyingtechs.studentManagement.controller.StudentController;
 import com.flyingtechs.studentManagement.dto.StudentDTO;
-import com.flyingtechs.studentManagement.mapper.StudentMapper;
 import com.flyingtechs.studentManagement.model.Student;
 import com.flyingtechs.studentManagement.service.StudentService;
 import org.springframework.data.domain.Page;
@@ -14,30 +13,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/api/student")
+@RequestMapping("/student")
 @RestController
 public class StudentControllerImpl implements StudentController {
     private final StudentService studentService;
-    private final StudentMapper studentMapper;
 
-    public StudentControllerImpl(StudentService studentService, StudentMapper studentMapper) {
+    public StudentControllerImpl(StudentService studentService) {
         this.studentService = studentService;
-        this.studentMapper = studentMapper;
     }
 
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StudentDTO save(@RequestBody StudentDTO studentDTO) {
-        Student student = studentMapper.asEntity(studentDTO);
-        return studentMapper.asDTO(studentService.save(student));
+        Student student = studentDTO.toEntity();
+        return (StudentDTO) StudentDTO.fromEntity(studentService.save(student));
     }
 
     @Override
     @GetMapping("/{id}")
     public StudentDTO findById(@PathVariable("id") Long id) {
         Student student = studentService.findById(id).orElse(null);
-        return studentMapper.asDTO(student);
+        return (StudentDTO) StudentDTO.fromEntity(student);
     }
 
     @Override
@@ -48,8 +45,9 @@ public class StudentControllerImpl implements StudentController {
 
     @Override
     @GetMapping
-    public List<StudentDTO> list() {
-        return studentMapper.asDTOList(studentService.findAll());
+    public List<Object> list() {
+        List<Student> students = studentService.findAll();
+        return students.stream().map(StudentDTO::fromEntity).collect(Collectors.toList());
     }
 
     @Override
@@ -57,15 +55,17 @@ public class StudentControllerImpl implements StudentController {
     public Page<StudentDTO> pageQuery(Pageable pageable) {
         Page<Student> studentPage = studentService.findAll(pageable);
         List<StudentDTO> dtoList = studentPage
+                .getContent()
                 .stream()
-                .map(studentMapper::asDTO).collect(Collectors.toList());
+                .map(student -> (StudentDTO) StudentDTO.fromEntity(student)) // Cast to StudentDTO
+                .collect(Collectors.toList());
         return new PageImpl<>(dtoList, pageable, studentPage.getTotalElements());
     }
 
     @Override
     @PutMapping("/{id}")
     public StudentDTO update(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id) {
-        Student student = studentMapper.asEntity(studentDTO);
-        return studentMapper.asDTO(studentService.update(student, id));
+        Student student = studentDTO.toEntity();
+        return (StudentDTO) StudentDTO.fromEntity(studentService.update(student, id));
     }
 }

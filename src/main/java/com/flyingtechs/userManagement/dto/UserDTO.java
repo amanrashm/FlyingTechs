@@ -1,11 +1,21 @@
 package com.flyingtechs.userManagement.dto;
 
 import com.flyingtechs.userManagement.model.Address;
+import com.flyingtechs.HrManagement.model.HR;
+import com.flyingtechs.studentManagement.model.Student;
+import com.flyingtechs.teacherManagement.model.Teacher;
 import com.flyingtechs.userManagement.model.IdentityDocument;
+import com.flyingtechs.userManagement.model.User;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
-public class UserDTO extends AbstractDTO<Long> {
+@Getter
+@Setter
+public class UserDTO {
+
     private Long id;
     private String name;
     private String fathersName;
@@ -16,105 +26,58 @@ public class UserDTO extends AbstractDTO<Long> {
     private String pincode;
     private String panCardNumber;
     private String aadharCardNumber;
-    private Address userAddress;
+    private @Size(max = 255, message = "Address can't exceed 255 characters") String userAddress;
     private List<IdentityDocument> identityDocuments;
+    private Student student;
+    private HR hr;
+    private Teacher teacher;
 
-    public UserDTO() {
+    public UserDTO(User user) {
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static User fromEntity(User user) {
+        User userDTO = new User();
+        userDTO.setId(user.getId());
+        userDTO.setName(user.getName());
+        userDTO.setFathersName(user.getFathersName());
+        userDTO.setAddress(user.getUserAddress().getStreet()); // Assuming User has an Address property
+        userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setCountryCode(user.getCountryCode());
+        userDTO.setDistrict(user.getDistrict());
+        userDTO.setPincode(user.getPincode());
+        userDTO.setPanCardNumber(user.getPanCardNumber());
+        userDTO.setAadharCardNumber(user.getAadharCardNumber()); // Assuming User has an Address property
+        userDTO.setIdentityDocuments(user.getIdentityDocuments());
+        userDTO.setStudent(user.getStudent());
+        userDTO.setHr(user.getHr());
+        userDTO.setTeacher(user.getTeacher());
+
+        return userDTO;
     }
 
-    public Long getId() {
-        return this.id;
-    }
+    public User toEntity() {
+        User user = new User();
+        user.setId(this.id);
+        user.setName(this.name);
+        user.setFathersName(this.fathersName);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        // Create a new Address instance and set the street
+        Address address = new Address();
+        address.setStreet(this.userAddress);
 
-    public String getName() {
-        return this.name;
-    }
+        user.setUserAddress(address); // Assuming User has an Address property
+        user.setPhoneNumber(this.phoneNumber);
+        user.setCountryCode(this.countryCode);
+        user.setDistrict(this.district);
+        user.setPincode(this.pincode);
+        user.setPanCardNumber(this.panCardNumber);
+        user.setAadharCardNumber(this.aadharCardNumber);
+        user.setIdentityDocuments(this.identityDocuments);
+        user.setStudent(this.student);
+        user.setHr(this.hr);
+        user.setTeacher(this.teacher);
 
-    public void setFathersName(String fathersName) {
-        this.fathersName = fathersName;
-    }
-
-    public String getFathersName() {
-        return this.fathersName;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getCountryCode() {
-        return this.countryCode;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getDistrict() {
-        return this.district;
-    }
-
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
-    public String getPincode() {
-        return this.pincode;
-    }
-
-    public void setPanCardNumber(String panCardNumber) {
-        this.panCardNumber = panCardNumber;
-    }
-
-    public String getPanCardNumber() {
-        return this.panCardNumber;
-    }
-
-    public void setAadharCardNumber(String aadharCardNumber) {
-        this.aadharCardNumber = aadharCardNumber;
-    }
-
-    public String getAadharCardNumber() {
-        return this.aadharCardNumber;
-    }
-
-    public void setUserAddress(Address userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public Address getUserAddress() {
-        return this.userAddress;
-    }
-
-    public void setIdentityDocuments(List<IdentityDocument> identityDocuments) {
-        this.identityDocuments = identityDocuments;
-    }
-
-    public List<IdentityDocument> getIdentityDocuments() {
-        return this.identityDocuments;
+        return user;
     }
 }

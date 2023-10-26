@@ -1,30 +1,32 @@
 package com.flyingtechs.studentManagement.controller;
 
 import com.flyingtechs.studentManagement.dto.StudentDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@Api(tags = "Student API")
 public interface StudentController {
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public abstract StudentDTO save(@RequestBody StudentDTO studentDTO);
+    @ApiOperation("Add new data")
+    public StudentDTO save(@RequestBody StudentDTO student);
 
-    @GetMapping("/{id}")
-    public abstract StudentDTO findById(@PathVariable("id") Long id);
+    @ApiOperation("Find by Id")
+    public StudentDTO findById(@PathVariable("id") Long id);
 
-    @DeleteMapping("/{id}")
-    public abstract void delete(@PathVariable("id") Long id);
+    @ApiOperation("Delete based on primary key")
+    public void delete(@PathVariable("id") Long id);
 
-    @GetMapping
-    public abstract List<StudentDTO> list();
+    @ApiOperation("Find all data")
+    public List<Object> list();
 
-    @GetMapping("/page-query")
-    public abstract Page<StudentDTO> pageQuery(Pageable pageable);
+    @ApiOperation("Pagination request")
+    public Page<StudentDTO> pageQuery(Pageable pageable);
 
-    @PutMapping("/{id}")
-    public abstract StudentDTO update(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id);
+    @ApiOperation("Update one data")
+    public StudentDTO update(@RequestBody StudentDTO dto, @PathVariable("id") Long id);
 }

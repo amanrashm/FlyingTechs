@@ -2,8 +2,7 @@ package com.flyingtechs.TestManagement.controller.impl;
 
 import com.flyingtechs.TestManagement.controller.TestController;
 import com.flyingtechs.TestManagement.dto.TestDTO;
-import com.flyingtechs.TestManagement.mapper.TestMapper;
-import com.flyingtechs.TestManagement.model.Test;
+import com.flyingtechs.TestManagement.model.Test1;
 import com.flyingtechs.TestManagement.service.TestService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,26 +17,24 @@ import java.util.stream.Collectors;
 @RestController
 public class TestControllerImpl implements TestController {
     private final TestService testService;
-    private final TestMapper testMapper;
 
-    public TestControllerImpl(TestService testService, TestMapper testMapper) {
+    public TestControllerImpl(TestService testService) {
         this.testService = testService;
-        this.testMapper = testMapper;
     }
 
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TestDTO save(@RequestBody TestDTO testDTO) {
-        Test test = testMapper.asEntity(testDTO);
-        return testMapper.asDTO(testService.save(test));
+        Test1 test1 = testDTO.toEntity();
+        return TestDTO.fromEntity(testService.save(test1));
     }
 
     @Override
     @GetMapping("/{id}")
     public TestDTO findById(@PathVariable("id") Long id) {
-        Test test = testService.findById(id).orElse(null);
-        return testMapper.asDTO(test);
+        Test1 test1 = testService.findById(id).orElse(null);
+        return TestDTO.fromEntity(test1);
     }
 
     @Override
@@ -49,23 +46,26 @@ public class TestControllerImpl implements TestController {
     @Override
     @GetMapping
     public List<TestDTO> list() {
-        return testMapper.asDTOList(testService.findAll());
+        List<Test1> test1s = testService.findAll();
+        return test1s.stream().map(TestDTO::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     @GetMapping("/page-query")
     public Page<TestDTO> pageQuery(Pageable pageable) {
-        Page<Test> testPage = testService.findAll(pageable);
+        Page<Test1> testPage = testService.findAll(pageable);
         List<TestDTO> dtoList = testPage
+                .getContent()
                 .stream()
-                .map(testMapper::asDTO).collect(Collectors.toList());
+                .map(TestDTO::fromEntity)
+                .collect(Collectors.toList());
         return new PageImpl<>(dtoList, pageable, testPage.getTotalElements());
     }
 
     @Override
     @PutMapping("/{id}")
     public TestDTO update(@RequestBody TestDTO testDTO, @PathVariable("id") Long id) {
-        Test test = testMapper.asEntity(testDTO);
-        return testMapper.asDTO(testService.update(test, id));
+        Test1 test1 = testDTO.toEntity();
+        return TestDTO.fromEntity(testService.update(test1, id));
     }
 }

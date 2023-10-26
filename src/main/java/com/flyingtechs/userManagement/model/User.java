@@ -3,10 +3,8 @@ package com.flyingtechs.userManagement.model;
 import com.flyingtechs.HrManagement.model.HR;
 import com.flyingtechs.studentManagement.model.Student;
 import com.flyingtechs.teacherManagement.model.Teacher;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -15,8 +13,6 @@ import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "USER_DETAILS")
 @Entity
 public class User {
@@ -81,4 +77,168 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    public User() {
+
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFathersName() {
+        return fathersName;
+    }
+
+    public void setFathersName(String fathersName) {
+        this.fathersName = fathersName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getPanCardNumber() {
+        return panCardNumber;
+    }
+
+    public void setPanCardNumber(String panCardNumber) {
+        this.panCardNumber = panCardNumber;
+    }
+
+    public String getAadharCardNumber() {
+        return aadharCardNumber;
+    }
+
+    public void setAadharCardNumber(String aadharCardNumber) {
+        this.aadharCardNumber = aadharCardNumber;
+    }
+
+    public Address getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(Address userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public List<IdentityDocument> getIdentityDocuments() {
+        return identityDocuments;
+    }
+
+    public void setIdentityDocuments(List<IdentityDocument> identityDocuments) {
+        this.identityDocuments = identityDocuments;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public HR getHr() {
+        return hr;
+    }
+
+    public void setHr(HR hr) {
+        this.hr = hr;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public User(Long id, String name, String fathersName, String address, String phoneNumber, String countryCode, String district, String pincode, String panCardNumber, String aadharCardNumber, Address userAddress, List<IdentityDocument> identityDocuments, Student student, HR hr, Teacher teacher) {
+        this.id = id;
+        this.name = name;
+        this.fathersName = fathersName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.countryCode = countryCode;
+        this.district = district;
+        this.pincode = pincode;
+        this.panCardNumber = panCardNumber;
+        this.aadharCardNumber = aadharCardNumber;
+        this.userAddress = userAddress;
+        this.identityDocuments = identityDocuments;
+        this.student = student;
+        this.hr = hr;
+        this.teacher = teacher;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fathersName='" + fathersName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", district='" + district + '\'' +
+                ", pincode='" + pincode + '\'' +
+                ", panCardNumber='" + panCardNumber + '\'' +
+                ", aadharCardNumber='" + aadharCardNumber + '\'' +
+                ", userAddress=" + userAddress +
+                ", identityDocuments=" + identityDocuments +
+                ", student=" + student +
+                ", hr=" + hr +
+                ", teacher=" + teacher +
+                '}';
+    }
 }

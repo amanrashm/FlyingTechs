@@ -18,4 +18,14 @@ public class Address {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column
+    private String street;
+
+    public void setStreet(String userAddress) {
+    }
+
+    public String getStreet() {
+        return null;
+    }
 }

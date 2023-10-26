@@ -1,7 +1,7 @@
 package com.flyingtechs.TestManagement.service.impl;
 
 import com.flyingtechs.TestManagement.dao.TestRepository;
-import com.flyingtechs.TestManagement.model.Test;
+import com.flyingtechs.TestManagement.model.Test1;
 import com.flyingtechs.TestManagement.service.TestService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,13 +22,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test save(Test entity) {
+    public Test1 save(Test1 entity) {
         return repository.save(entity);
     }
 
     @Override
-    public List<Test> save(List<Test> entities) {
-        return (List<Test>) repository.saveAll(entities);
+    public List<Test1> save(List<Test1> entities) {
+        return (List<Test1>) repository.saveAll(entities);
     }
 
     @Override
@@ -37,25 +37,25 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Optional<Test> findById(Long id) {
+    public Optional<Test1> findById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public List<Test> findAll() {
-        return (List<Test>) repository.findAll();
+    public List<Test1> findAll() {
+        return (List<Test1>) repository.findAll();
     }
 
     @Override
-    public Page<Test> findAll(Pageable pageable) {
-        Page<Test> entityPage = repository.findAll(pageable);
-        List<Test> entities = entityPage.getContent();
+    public Page<Test1> findAll(Pageable pageable) {
+        Page<Test1> entityPage = repository.findAll(pageable);
+        List<Test1> entities = entityPage.getContent();
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
     @Override
-    public Test update(Test entity, Long id) {
-        Optional<Test> optional = findById(id);
+    public Test1 update(Test1 entity, Long id) {
+        Optional<Test1> optional = findById(id);
         if (optional.isPresent()) {
             return save(entity);
         }

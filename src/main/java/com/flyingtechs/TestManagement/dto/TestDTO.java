@@ -1,5 +1,6 @@
 package com.flyingtechs.TestManagement.dto;
 
+import com.flyingtechs.TestManagement.model.Test1;
 import com.flyingtechs.TestManagement.model.TestType;
 import com.flyingtechs.studentManagement.model.Student;
 
@@ -9,12 +10,16 @@ public class TestDTO extends AbstractDTO<Long> {
     private Long id;
     private String testName;
     private String testDescription;
-    private TestType testType;
     private int totalMarks;
     private Date testDate;
     private Student student;
+    private TestType testType;
 
-    public TestDTO() {
+    public TestDTO(Test1 test1) {
+    }
+
+    public static TestDTO fromEntity(Test1 save) {
+        return null;
     }
 
     public void setId(Long id) {
@@ -41,14 +46,6 @@ public class TestDTO extends AbstractDTO<Long> {
         return this.testDescription;
     }
 
-    public void setTestType(TestType testType) {
-        this.testType = testType;
-    }
-
-    public TestType getTestType() {
-        return this.testType;
-    }
-
     public void setTotalMarks(int totalMarks) {
         this.totalMarks = totalMarks;
     }
@@ -61,7 +58,7 @@ public class TestDTO extends AbstractDTO<Long> {
         this.testDate = testDate;
     }
 
-    public Date getTestDate() {
+    public java.util.Date getTestDate() {
         return this.testDate;
     }
 
@@ -71,5 +68,17 @@ public class TestDTO extends AbstractDTO<Long> {
 
     public Student getStudent() {
         return this.student;
+    }
+
+    public void setTestType(TestType testType) {
+        this.testType = testType;
+    }
+
+    public TestType getTestType() {
+        return this.testType;
+    }
+
+    public Test1 toEntity() {
+        return null;
     }
 }

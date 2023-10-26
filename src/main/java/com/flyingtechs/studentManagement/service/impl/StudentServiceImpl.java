@@ -1,8 +1,6 @@
 package com.flyingtechs.studentManagement.service.impl;
 
 import com.flyingtechs.studentManagement.dao.StudentRepository;
-import com.flyingtechs.studentManagement.dto.StudentDTO;
-import com.flyingtechs.studentManagement.mapper.StudentMapper;
 import com.flyingtechs.studentManagement.model.Student;
 import com.flyingtechs.studentManagement.service.StudentService;
 import org.springframework.data.domain.Page;

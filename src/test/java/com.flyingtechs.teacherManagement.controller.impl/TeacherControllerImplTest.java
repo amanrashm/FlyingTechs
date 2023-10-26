@@ -1,12 +1,9 @@
 package com.flyingtechs.teacherManagement.controller.impl;
 
-import com.flyingtechs.studentManagement.controller.impl.CustomUtils;
-import com.flyingtechs.studentManagement.mapper.ReferenceMapper;
-import com.flyingtechs.teacherManagement.controller.impl.TeacherControllerImpl;
 import com.flyingtechs.teacherManagement.dto.TeacherDTO;
-import com.flyingtechs.teacherManagement.mapper.TeacherMapper;
 import com.flyingtechs.teacherManagement.model.Teacher;
 import com.flyingtechs.teacherManagement.service.TeacherService;
+import com.flyingtechs.userManagement.controller.impl.CustomUtils;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
 import org.junit.Before;
@@ -14,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -34,16 +29,14 @@ import java.util.Arrays;
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 public class TeacherControllerImplTest {
-    //TODO: create the data Test generator class TeacherBuilder
     private static final String ENDPOINT_URL = "/teachers";
-    @MockBean
-    private ReferenceMapper referenceMapper;
+
     @InjectMocks
     private TeacherControllerImpl teacherController;
+
     @MockBean
     private TeacherService teacherService;
-    @MockBean
-    private TeacherMapper teacherMapper;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -54,22 +47,27 @@ public class TeacherControllerImplTest {
 
     @Test
     public void getAll() throws Exception {
-        Mockito.when(teacherMapper.asDTOList(ArgumentMatchers.any())).thenReturn(TeacherBuilder.getListDTO());
+        Teacher teacher1 = new Teacher();
+        teacher1.setId(1L);
 
-        Mockito.when(teacherService.findAll()).thenReturn(TeacherBuilder.getListEntities());
+        Teacher teacher2 = new Teacher();
+        teacher2.setId(2L);
+
+        Mockito.when(teacherService.findAll()).thenReturn(Arrays.asList(teacher1, teacher2));
+
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
-
     }
 
     @Test
     public void getById() throws Exception {
-        Mockito.when(teacherMapper.asDTO(ArgumentMatchers.any())).thenReturn(TeacherBuilder.getDTO());
+        Teacher teacher = new Teacher();
+        teacher.setId(1L);
 
-        Mockito.when(teacherService.findById(ArgumentMatchers.anyLong())).thenReturn(java.util.Optional.of(TeacherBuilder.getEntity()));
+        Mockito.when(teacherService.findById(ArgumentMatchers.anyLong())).thenReturn(java.util.Optional.of(teacher));
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -82,13 +80,15 @@ public class TeacherControllerImplTest {
 
     @Test
     public void save() throws Exception {
-        Mockito.when(teacherMapper.asEntity(ArgumentMatchers.any())).thenReturn(TeacherBuilder.getEntity());
-        Mockito.when(teacherService.save(ArgumentMatchers.any(Teacher.class))).thenReturn(TeacherBuilder.getEntity());
+        Teacher teacher = new Teacher();
+
+        Mockito.when(teacherService.save(ArgumentMatchers.any(Teacher.class))).thenReturn(teacher);
 
         mockMvc.perform(
                         MockMvcRequestBuilders.post(ENDPOINT_URL)
                                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                .content(CustomUtils.asJsonString(TeacherBuilder.getDTO())))
+                                .content(CustomUtils.asJsonString(new TeacherDTO(teacher)))
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
         Mockito.verify(teacherService, Mockito.times(1)).save(ArgumentMatchers.any(Teacher.class));
         Mockito.verifyNoMoreInteractions(teacherService);
@@ -96,13 +96,15 @@ public class TeacherControllerImplTest {
 
     @Test
     public void update() throws Exception {
-        Mockito.when(teacherMapper.asEntity(ArgumentMatchers.any())).thenReturn(TeacherBuilder.getEntity());
-        Mockito.when(teacherService.update(ArgumentMatchers.any(), ArgumentMatchers.anyLong())).thenReturn(TeacherBuilder.getEntity());
+        Teacher teacher = new Teacher();
+
+        Mockito.when(teacherService.update(ArgumentMatchers.any(), ArgumentMatchers.anyLong())).thenReturn(teacher);
 
         mockMvc.perform(
                         MockMvcRequestBuilders.put(ENDPOINT_URL + "/1")
                                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                .content(CustomUtils.asJsonString(TeacherBuilder.getDTO())))
+                                .content(CustomUtils.asJsonString(new TeacherDTO(teacher)))
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         Mockito.verify(teacherService, Mockito.times(1)).update(ArgumentMatchers.any(Teacher.class), ArgumentMatchers.anyLong());
         Mockito.verifyNoMoreInteractions(teacherService);
@@ -114,6 +116,7 @@ public class TeacherControllerImplTest {
         mockMvc.perform(
                         MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(teacherService, Mockito.times(1)).deleteById(Mockito.anyLong());
+        Mockito.verify(teacherService, Mockito.times(1)).deleteById(ArgumentMatchers.anyLong());
         Mockito.verifyNoMoreInteractions(teacherService);
     }
+}
