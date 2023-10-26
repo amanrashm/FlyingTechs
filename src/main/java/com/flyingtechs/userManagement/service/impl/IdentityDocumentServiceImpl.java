@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public abstract class IdentityDocumentServiceImpl implements IdentityDocumentService {
     private final IdentityDocumentRepository repository;
 
