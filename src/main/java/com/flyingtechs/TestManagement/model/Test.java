@@ -25,11 +25,6 @@ public class Test {
 
     private String testDescription;
 
-    @Enumerated(EnumType.STRING)
-    @ManyToOne
-    @JoinColumn(name = "test_type_id")
-    private TestType testType;
-
     private int totalMarks;
 
     private Date testDate;
@@ -37,5 +32,10 @@ public class Test {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "test_type_id")
+    private TestType testType;
 
 }

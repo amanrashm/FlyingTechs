@@ -1,14 +1,24 @@
 package com.flyingtechs.TestManagement.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.flyingtechs.studentManagement.model.Student;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "test_type")
 public class TestType {
+
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
 }

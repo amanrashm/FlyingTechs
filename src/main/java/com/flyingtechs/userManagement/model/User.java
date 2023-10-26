@@ -1,5 +1,8 @@
 package com.flyingtechs.userManagement.model;
 
+import com.flyingtechs.HrManagement.model.HR;
+import com.flyingtechs.studentManagement.model.Student;
+import com.flyingtechs.teacherManagement.model.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -66,4 +69,16 @@ public class User {
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private List<IdentityDocument> identityDocuments;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hr_hr_id")
+    private HR hr;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 }

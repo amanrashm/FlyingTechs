@@ -1,14 +1,22 @@
 package com.flyingtechs.userManagement.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "identity_document")
 public class IdentityDocument {
+
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
 }

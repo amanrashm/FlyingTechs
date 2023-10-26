@@ -1,5 +1,7 @@
 package com.flyingtechs.studentManagement.model;
 
+import com.flyingtechs.TestManagement.model.Test;
+import com.flyingtechs.TestManagement.model.TestType;
 import com.flyingtechs.userManagement.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,4 +58,10 @@ public class Student {
 
     @OneToMany(mappedBy = "student")
     private Set<TestResult> testResults;
+
+    @OneToMany(mappedBy = "student")
+    private Set<TestType> testTypes;
+
+    @OneToMany(mappedBy = "student")
+    private Set<Test> tests;
 }
