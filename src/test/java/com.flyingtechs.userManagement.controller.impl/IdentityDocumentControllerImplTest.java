@@ -6,37 +6,30 @@ import com.flyingtechs.userManagement.service.IdentityDocumentService;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
-public class IdentityDocumentControllerImplTest1 {
+public class IdentityDocumentControllerImplTest {
+
     private static final String ENDPOINT_URL = "/identity-documents";
 
     @InjectMocks
     private IdentityDocumentControllerImpl identityDocumentController;
 
-    @MockBean
+    @Mock
     private IdentityDocumentService identityDocumentService;
 
-    @Autowired
     private MockMvc mockMvc;
 
     @Before
@@ -57,7 +50,7 @@ public class IdentityDocumentControllerImplTest1 {
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
-                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
     }
 
@@ -71,7 +64,7 @@ public class IdentityDocumentControllerImplTest1 {
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
-                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(1)));
         Mockito.verify(identityDocumentService, Mockito.times(1)).findById(1L);
         Mockito.verifyNoMoreInteractions(identityDocumentService);
@@ -85,7 +78,7 @@ public class IdentityDocumentControllerImplTest1 {
 
         mockMvc.perform(
                         MockMvcRequestBuilders.post(ENDPOINT_URL)
-                                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(new IdentityDocumentDTO(identityDocument)))
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -101,7 +94,7 @@ public class IdentityDocumentControllerImplTest1 {
 
         mockMvc.perform(
                         MockMvcRequestBuilders.put(ENDPOINT_URL + "/1")
-                                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(new IdentityDocumentDTO(identityDocument)))
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());

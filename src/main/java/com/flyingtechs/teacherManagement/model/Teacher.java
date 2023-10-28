@@ -20,6 +20,14 @@ import javax.persistence.*;
 public class Teacher {
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "teacher_id", nullable = false)
     private Long id;

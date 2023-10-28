@@ -13,6 +13,14 @@ import javax.persistence.*;
 @Table(name = "test_type")
 public class TestType {
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

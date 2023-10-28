@@ -1,5 +1,6 @@
 package com.flyingtechs.studentManagement.model;
 
+import com.flyingtechs.HrManagement.model.HR;
 import com.flyingtechs.teacherManagement.model.Teacher;
 import lombok.*;
 
@@ -24,5 +25,9 @@ public class AttendanceRecord {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "HR_ID")
+    private HR hr;
 
 }
