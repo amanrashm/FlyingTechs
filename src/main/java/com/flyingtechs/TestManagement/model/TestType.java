@@ -21,6 +21,10 @@ public class TestType {
         this.id = id;
     }
 
+    private String typeName;
+
+    private int totalTests;
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

@@ -5,6 +5,7 @@ import com.flyingtechs.teacherManagement.model.Teacher;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,6 +18,10 @@ public class AttendanceRecord {
     @Id
     @Column(name = "Attendance_Record_id", nullable = false)
     private Long id;
+
+    private LocalDateTime attendanceDate;
+
+    private boolean isPresent;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id")

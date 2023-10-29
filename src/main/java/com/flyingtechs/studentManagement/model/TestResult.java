@@ -19,6 +19,10 @@ public class TestResult {
         this.id = id;
     }
 
+    private String testTitle;
+
+    private double score;
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

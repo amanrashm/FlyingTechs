@@ -16,6 +16,11 @@ public class HomeworkSubmission {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String homeworkTitle;
+
+    @Lob
+    private byte[] homeworkData;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;

@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "User_ID")
     private Long id;
 
@@ -27,7 +27,7 @@ public class User {
     private String name;
 
     @Size(min = 3, max = 50, message = "Father's name must be between 3 and 50 characters")
-    @Column(name = "Father's_Name", nullable = false)
+    @Column(name = "Fathers_Name", nullable = false)
     private String fathersName;
 
     @Size(max = 255, message = "Address can't exceed 255 characters")
@@ -71,7 +71,7 @@ public class User {
     private Student student;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "hr_hr_id")
+    @JoinColumn(name = "HR_ID")
     private HR hr;
 
     @OneToOne(cascade = CascadeType.ALL)

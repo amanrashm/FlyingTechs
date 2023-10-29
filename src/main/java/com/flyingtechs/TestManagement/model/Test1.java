@@ -37,6 +37,9 @@ public class Test1 {
 
     private Date testDate;
 
+    @Lob
+    private String testContent;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;

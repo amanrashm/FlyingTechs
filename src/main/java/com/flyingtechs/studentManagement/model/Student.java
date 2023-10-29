@@ -29,6 +29,7 @@ public class Student {
     }
 
     @Id
+    @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -54,22 +55,40 @@ public class Student {
     @Column(nullable = false)
     @Size(max = 50, message = "Academic advisor's name can't exceed 50 characters")
     private String academicAdvisor;
-
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<HomeworkSubmission> homeworkSubmissions;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Course> courses;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<AttendanceRecord> attendanceRecords;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<TestResult> testResults;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<TestType> testTypes;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Test1> test1s;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<LeaveApplication> leaveApplications;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Notification> notifications;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private Set<ChatMessage> sentMessages;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private Set<ChatMessage> receivedMessages;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<LiveClassVideo> liveClassVideos;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Note> notes;
+
 }

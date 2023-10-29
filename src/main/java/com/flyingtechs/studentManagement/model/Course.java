@@ -15,6 +15,11 @@ public class Course {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String courseName;
+
+    @Lob
+    private String courseDescription;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
