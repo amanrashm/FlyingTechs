@@ -3,6 +3,7 @@ package com.flyingtechs.userManagement.model;
 import com.flyingtechs.HrManagement.model.HR;
 import com.flyingtechs.studentManagement.model.Student;
 import com.flyingtechs.teacherManagement.model.Teacher;
+import com.flyingtechs.video.LiveVideoClass;
 import lombok.Builder;
 import lombok.Data;
 
@@ -77,6 +78,15 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "host")
+    private List<LiveVideoClass> hostedClasses;
+
+    @ManyToMany(mappedBy = "cohosts")
+    private List<LiveVideoClass> cohostedClasses;
+
+    @ManyToMany(mappedBy = "participants")
+    private List<LiveVideoClass> participatedClasses;
 
     public User() {
 

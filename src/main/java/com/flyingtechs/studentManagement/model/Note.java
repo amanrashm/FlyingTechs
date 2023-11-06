@@ -1,5 +1,6 @@
 package com.flyingtechs.studentManagement.model;
 
+import com.flyingtechs.video.LiveVideoClass;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,9 @@ public class Note {
 
     @Lob
     private byte[] pdfData;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "live_video_class_id")
+    private LiveVideoClass liveVideoClass;
 
 }
